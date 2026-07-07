@@ -1,29 +1,33 @@
 import React, { useEffect, useEffectEvent, useState } from "react";
 
+// Advanced usecases of useEffect --->
+
 const App = () => {
 
-  const [count, setCount] = useState(0);
-  const [number, setNumber] = useState(10);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [debounceTerm, setDebounceTerm] = useState("");
 
-  // UseEffect Syntax --->
   useEffect(() => {
-    console.log("Learning UseEffect");
-  }, [number])
-  
+    // Api Call -->
+    const timeout = setTimeout(() => {
+      setDebounceTerm(searchTerm);
+    }, 500)
+    return () => clearInterval(timeout);
+  }, [searchTerm])
 
   return (
     <>
-      
-       <div className="ml-1 text-4xl p-3">{count}</div>
-       <div className="ml-1 text-4xl p-3">{number}</div>
-      <button 
-      className="border border-black rounded py-1 px-2 " 
-      onClick={() => {setCount(count + 1)}}>Increment</button>
-      <button 
-      className="border border-black rounded py-1 px-2 " 
-      onClick={() => {setNumber(number - 1)}}>Decrement</button>
+      <input 
+      type="text"
+      value={searchTerm} 
+      onChange={(e) => setSearchTerm(e.target.value)}
+      placeholder="Search..."
+      className="border border-black rounded px-3 py-1 m-25"
+      />
+      <h1>hey : {debounceTerm}</h1>
     </>
   );
+
 };
 
 export default App;
