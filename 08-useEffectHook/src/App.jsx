@@ -4,30 +4,26 @@ import React, { useEffect, useEffectEvent, useState } from "react";
 
 const App = () => {
 
-  const [searchTerm, setSearchTerm] = useState("");
-  const [debounceTerm, setDebounceTerm] = useState("");
-
+  const [count, setCount] = useState(0)
+  
   useEffect(() => {
-    // Api Call -->
-    const timeout = setTimeout(() => {
-      setDebounceTerm(searchTerm);
-    }, 500)
-    return () => clearInterval(timeout);
-  }, [searchTerm])
+    console.log("count value", count);
+  }, [count])
 
   return (
     <>
-      <input 
-      type="text"
-      value={searchTerm} 
-      onChange={(e) => setSearchTerm(e.target.value)}
-      placeholder="Search..."
-      className="border border-black rounded px-3 py-1 m-25"
-      />
-      <h1>hey : {debounceTerm}</h1>
+      <div className="h-screen flex flex-col items-center justify-center">
+        <h1 className="text-4xl font-extrabold">UseEffect Hook</h1>
+        <p className="text-2xl border border-white py-2 px-4 m-5">count : {count}</p>
+        <button
+        onClick={() => {
+          setCount(count + 1);
+        }}
+        className=" rounded px-2 py-1 bg-gray-600 cursor-pointer active:scale-50"
+        >Increment</button>
+      </div>
     </>
-  );
-
+  )
 };
 
 export default App;
