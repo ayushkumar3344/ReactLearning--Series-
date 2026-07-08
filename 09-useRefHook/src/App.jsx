@@ -2,41 +2,24 @@ import React, { useEffect, useRef, useState } from 'react'
 
 const App = () => {
 
-  const inputRef = useRef();
-
-  const [name, setName] = useState("Ayush");
-
-  const handleReset = () => {
-    setName("")
-    inputRef.current.focus()
-  }
-
-  const handleChange = () => {
-    inputRef.current.style.color = "yellow";
-  }
+  const [count, setCount] = useState(0);
+  const prevCount = useRef();
   
+  useEffect(() => {
+    prevCount.current = count;
+  }, [count])
 
   return (
     <>
       <div className='min-h-screen flex flex-col items-center justify-center'>
-        <input
-        ref={inputRef}
-        className='border border-white px-3 py-2' 
-        placeholder='Type Something...'
-        type="text"
-        value={name} 
-        onChange={(e) => {setName(e.target.value)}}
-        />
+        
+        <h1 className='text-4xl font-extrabold'>Count : {count}</h1>
+        <h1 className='text-4xl font-extrabold'>Previous Count : {prevCount.current}</h1>
 
         <button 
-        onClick={handleReset}
-        className='border border-white bg-white text-black px-3 py-2 mt-5 rounded cursor-pointer'
-        >Reset</button>
-
-        <button 
-        onClick={handleChange}
-        className='border border-white bg-white text-black px-3 py-2 mt-5 rounded cursor-pointer'
-        >Change Input</button>
+        onClick={() => {setCount(count + 1)}}
+        className='border border-white px-3 py-2 mt-5 rounded cursor-pointer hover:bg-white hover:text-black'
+        >Increment</button>
 
       </div>
     </>
