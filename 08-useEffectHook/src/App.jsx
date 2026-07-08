@@ -4,23 +4,20 @@ import React, { useEffect, useEffectEvent, useState } from "react";
 
 const App = () => {
 
-  const [count, setCount] = useState(0)
-  
+  const [date, setDate] = useState(0);
+
   useEffect(() => {
-    console.log("count value", count);
-  }, [count])
+    setInterval(() => {
+      const updateDate = new Date();
+      setDate(updateDate.toLocaleTimeString())
+    }, 1000);
+  }, [])
 
   return (
     <>
-      <div className="h-screen flex flex-col items-center justify-center">
-        <h1 className="text-4xl font-extrabold">UseEffect Hook</h1>
-        <p className="text-2xl border border-white py-2 px-4 m-5">count : {count}</p>
-        <button
-        onClick={() => {
-          setCount(count + 1);
-        }}
-        className=" rounded px-2 py-1 bg-gray-600 cursor-pointer active:scale-50"
-        >Increment</button>
+      <div className="h-screen flex flex-col gap-y-2 items-center justify-center">
+        <h1 className="text-3xl font-extrabold">Date : <span className="text-green-500 shadow-2xl">{date}</span></h1>
+        <button className="border border-white px-4 py-1">Click</button>
       </div>
     </>
   )
