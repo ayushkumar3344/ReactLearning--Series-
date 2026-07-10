@@ -1,43 +1,46 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from "react";
 
 const App = () => {
+  const [count, setCount] = useState(0);
+  let timerRef = useRef(null);
 
-  const inputRef = useRef();
-  const [name, setName] = useState("Ayush");
-
-  const handleReset = () => {
-    setName("");
-    inputRef.current.focus();
+  const startTimer = () => {
+    timerRef.current = window.setInterval(() => {
+      setCount((prev) => prev + 1)
+    },1000)
   }
 
-  const handleChange = () => {
-    inputRef.current.style.color = "Orange";
+  const stopTimer = () => {
+    if(timerRef.current){
+      clearInterval(timerRef.current);
+    }
   }
 
   return (
     <>
-      <div className='min-h-screen flex flex-col items-center justify-center'>
+      <div className="min-h-screen flex flex-col items-center justify-center">
 
-        <input 
-        ref={inputRef}
-        onChange={(e) => {setName(e.target.value)}}
-        value={name}
-        className='border border-white rounded px-4 py-2'
-        placeholder='Type something...'
-        type="text" />
+        <p className="text-3xl font-extrabold">Timer : {count} second's</p>
 
-        <button 
-        onClick={handleReset}
-        className='border border-white px-4 py-2 mt-5 rounded bg-gray-800 active:scale-50'>Reset</button>
+        <div className="flex gap-x-2">
 
-        <button 
-        onClick={handleChange}
-        className='border border-white px-4 py-2 mt-5 rounded bg-gray-800 active:scale-50'>Change Color</button>
+          <button 
+          onClick={startTimer}
+          className="border border-white rounded px-4 py-2 mt-5 bg-gray-800 active:scale-50 cursor-pointer">
+            Start
+          </button>
+
+          <button 
+          onClick={stopTimer}
+          className="border border-white rounded px-4 py-2 mt-5 bg-gray-800 active:scale-50 cursor-pointer">
+            Stop
+          </button>
+
+        </div>
 
       </div>
     </>
-  )
+  );
+};
 
-}
-
-export default App
+export default App;
